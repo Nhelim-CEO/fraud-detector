@@ -1,41 +1,59 @@
-Financial Fraud Detection System (Cybersecurity Analytics)
+Fraud Detection System
+    Overview
+This project is a machine learning system designed to detect fraudulent financial transactions using behavioral patterns in transaction data. It is built as a cybersecurity-focused anomaly detection system for financial fraud identification.
 
-Overview
+    Problem Statement
+Financial fraud is rare but highly impactful. The dataset is highly imbalanced, making it difficult to detect fraudulent transactions accurately. The goal is to identify fraud based on transaction behavior rather than just raw values.
 
-This project detects fraudulent financial transactions using machine learning and behavioral analysis techniques. It simulates a real-world fraud detection system used in cybersecurity and fintech environments.
+    Approach
+The problem is treated as a behavioral anomaly detection task rather than a standard classification problem.
 
-Problem Statement
+    The system analyzes:
+Transaction patterns
+Account balance changes
+Unusual transaction types
+Abnormal financial behavior
 
-Financial fraud is rare but highly damaging. The dataset is highly imbalanced, requiring careful feature engineering and evaluation focused on fraud detection recall.
+    Key Findings
+Fraudulent transactions were found to occur only in:
+TRANSFER
+CASH_OUT
 
-Approach
-Analyzed transaction patterns and fraud behavior
-Identified that fraud occurs mainly in TRANSFER and CASH_OUT transactions
-Engineered behavioral features such as:
-balance inconsistencies
-full account drain detection
-high-value transaction flags
-Trained a Random Forest classifier with class balancing
+Fraud behavior is typically associated with:
+Complete account balance depletion
+Abnormal transfer patterns
+Inconsistent balance updates
+Feature Engineering
 
-Key Insight
- Fraudulent transactions exhibit:
-abnormal balance depletion patterns
-specific transaction type restrictions
-sudden large value movements
- Model
-Random Forest Classifier
-Class imbalance handled using balanced weighting
-Train/test split with stratification
- Evaluation Metrics
+The following features were created to capture fraudulent behavior:
+error_balance_orig: difference in sender balance before and after transaction
+error_balance_dest: difference in receiver balance before and after transaction
+is_full_drain: indicates full account depletion
+is_new_destination: identifies previously unseen destination accounts
+is_transfer: flag for transfer transactions
+is_cashout: flag for cash-out transactions
+high_value_txn: identifies unusually large transactions
+
+    Model
+Random Forest Classifier was used for training.
+Reason:
+Handles non-linear relationships
+Works well with mixed feature types
+Performs reliably on imbalanced datasets when class weighting is applied
+
+Class imbalance was handled using class weighting.
+
+    Evaluation
+Model performance is evaluated using:
 Precision
-Recall (primary focus for fraud detection)
+Recall (primary metric for fraud detection)
 F1-score
-Confusion matrix analysis
- Tech Stack
+Confusion matrix
+
+Recall is prioritized because missing fraudulent transactions is a critical failure.
+
+    Tech Stack
 Python
 Pandas
-Scikit-learn
 NumPy
- Key Learning Outcome
-
-Built a fraud detection pipeline that mimics real-world cybersecurity fraud monitoring systems using behavioral anomaly detection + machine learning.
+Scikit-learn
